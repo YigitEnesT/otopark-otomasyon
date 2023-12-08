@@ -1,0 +1,272 @@
+.product-page {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.product-page .div {
+    background-color: #ffffff;
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-page .tomato {
+    position: absolute;
+    width: 353px;
+    height: 590px;
+    top: 302px;
+    left: 85px;
+    background-color: #fafaf5;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid;
+    border-color: #e6e6e6;
+}
+
+.product-page .overlap {
+    position: absolute;
+    width: 281px;
+    height: 70px;
+    top: 483px;
+    left: 36px;
+}
+
+.product-page .text-wrapper {
+    position: absolute;
+    width: 126px;
+    top: 40px;
+    left: 0;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #426b1f;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 26px;
+    white-space: nowrap;
+}
+
+.product-page .text-wrapper-2 {
+    position: absolute;
+    width: 126px;
+    top: 40px;
+    left: 155px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #426b1f;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 26px;
+    white-space: nowrap;
+}
+
+.product-page .plakaya-ait-kullan-c {
+    position: absolute;
+    width: 205px;
+    top: 0;
+    left: 38px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 26px;
+}
+
+.product-page .overlap-group {
+    position: absolute;
+    width: 353px;
+    height: 470px;
+    top: 0;
+    left: 0;
+    background-image: url(./img/ed-o-neil-avvdzlhdowa-unsplash-1.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .overlap-2 {
+    width: 279px;
+    height: 38px;
+    top: 427px;
+    left: 37px;
+    background-image: url(./img/image.svg);
+    position: absolute;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .text-wrapper-3 {
+    position: absolute;
+    width: 50px;
+    top: 3px;
+    left: 220px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 31.2px;
+    white-space: nowrap;
+}
+
+.product-page .div-wrapper {
+    width: 22px;
+    height: 36px;
+    top: 1px;
+    left: 0;
+    background-image: url(./img/ed-o-neil-avvdzlhdowa-unsplash-3.svg);
+    position: absolute;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .text-wrapper-4 {
+    position: absolute;
+    width: 14px;
+    top: 20px;
+    left: 4px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: 13px;
+    white-space: nowrap;
+}
+
+.product-page .text-wrapper-5 {
+    position: absolute;
+    width: 37px;
+    top: 3px;
+    left: 37px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 31.2px;
+    white-space: nowrap;
+}
+
+.product-page .text-wrapper-6 {
+    position: absolute;
+    width: 82px;
+    top: 3px;
+    left: 106px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 31.2px;
+    white-space: nowrap;
+}
+
+.product-page .screenshot {
+    position: absolute;
+    width: 275px;
+    height: 387px;
+    top: 28px;
+    left: 41px;
+    object-fit: cover;
+    border-radius: 50px;
+}
+
+.product-page .tomato-2 {
+    position: relative;
+    width: 353px;
+    height: 590px;
+
+    background-color: #fafaf5;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid;
+    border-color: #e6e6e6;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.product-page .plakaya-ait-kullan-c-2 {
+    position: absolute;
+    width: 205px;
+    top: 483px;
+    left: 74px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 26px;
+}
+
+.product-page .text-wrapper-7 {
+    position: absolute;
+    top: 523px;
+    left: 36px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #426b1f;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 26px;
+    white-space: nowrap;
+}
+
+.product-page .overlap-3 {
+    position: absolute;
+    width: 353px;
+    height: 470px;
+    top: 0;
+    left: 0;
+    background-image: url(./img/ed-o-neil-avvdzlhdowa-unsplash-1-2.png);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .overlap-group-2 {
+    width: 279px;
+    height: 38px;
+    top: 427px;
+    left: 37px;
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .overlap-4 {
+    width: 22px;
+    height: 38px;
+    top: 0px;
+    left: 0;
+    background-color: blue;
+    position: absolute;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.product-page .text-wrapper-8 {
+    position: absolute;
+    width: 126px;
+    top: 523px;
+    left: 190px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 20px;
+    text-align: right;
+    letter-spacing: 0;
+    line-height: 26px;
+    white-space: nowrap;
+}

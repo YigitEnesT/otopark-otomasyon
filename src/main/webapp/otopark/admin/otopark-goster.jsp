@@ -15,43 +15,15 @@
 <%@page import="java.sql.DriverManager"%>
 
 <%@page import="java.sql.Connection"%>
-<%
-    ArrayList<parkYeri> parkYerleri = new ArrayList<>();
 
-    try {
-        // Veritabanı bağlantısı
-        admindb obj = new admindb();
-
-        // Park yerlerini al
-        parkYerleri = obj.getOtoparkDurumu(); // Veritabanından park yerlerini al
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
     <title>Otopark Durumu</title>
     <!-- Stil dosyalarını veya CSS kütüphanelerini buraya ekleyebilirsiniz -->
-    <style>
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+    <link rel="stylesheet" href="style.css" />
 
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }
-
-    </style>
 </head>
 <body>
     <%@include file="admin-menu.jsp" %>
@@ -61,30 +33,50 @@
             response.sendRedirect("admin-loginpage.jsp");
         }
     %>
+    <%
+        ArrayList<parkYeri> parkYerleri = new ArrayList<>();
+
+        try {
+            admindb obj = new admindb();
+
+            // Park yerlerini al
+            parkYerleri = obj.getOtoparkDurumu(); // Veritabanından park yerlerini al
+
+    %>
 <div class="container-lg">
-    <h1>Otopark Durumu: <% admindb obj = new admindb(); out.println(obj.getDoluluk()); %>/10</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Park Yeri ID</th>
-                <th scope="col">Plaka</th>
-                <th scope="col">Giriş Saati</th>
-                <th scope="col">Tutar</th>
-                <th scope="col">Durumu</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for (parkYeri parkYer : parkYerleri) { %>
-                <tr>
-                    <td><%= parkYer.getId() %></td>
-                    <td><%= parkYer.getPlaka() != null ? parkYer.getPlaka() : "Boş" %></td>
-                    <td><%= parkYer.getGiris_saati() != null ? parkYer.getGiris_saati() : "Boş" %></td>
-                    <td><%= parkYer.getGiris_saati() != null ? parkYer.mevcutTutar(parkYer.getGiris_saati()) : "Boş" %></td>
-                    <td><%= parkYer.getBosDolu() == 1 ? "Dolu" : "Boş" %></td>
-                </tr>
-            <% } %>
-        </tbody>
-    </table>
+    <div class="product-page">
+
+        <div class="div">
+            <% for (parkYeri parkYer : parkYerleri) {%>
+            <div class="tomato-2">  
+                <div class="plakaya-ait-kullan-c-2"><%
+                    if (parkYer.getBosDolu() == 1) {
+                        out.print("Dolu");
+                    } else {
+                        out.print("Boş");
+                    }
+                    %></div>
+                <div class="text-wrapper-7"><%= parkYer.mevcutTutar(parkYer.getGiris_saati())%> TL</div>
+                <div class="overlap-3">
+                    <div class="overlap-group-2">
+                        <div class="text-wrapper-3"><%= parkYer.getPlakaSon() %></div>
+                        <div class="overlap-4"><div class="text-wrapper-4">TR</div></div>
+                        <div class="text-wrapper-5"><%= parkYer.getPlakaBas() %></div>
+                        <div class="text-wrapper-6"><%= parkYer.getPlakaOrta() %></div>
+                    </div>
+                    <img class="screenshot" src="araba.png" />
+                </div>
+                <div class="text-wrapper-8"><%= parkYer.getParkTime()%></div>
+            </div>
+
+            <% }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+        </div>
+    </div>
+
 </div>
 
 </body>

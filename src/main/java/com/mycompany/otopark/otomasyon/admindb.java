@@ -20,6 +20,7 @@ import java.util.Date;
 public class admindb {
 
     public static void main(String[] args) {
+        
     }
 
     private Connection conGetir() {
@@ -250,11 +251,7 @@ public class admindb {
 
             while (rs.next()) {
                 parkYeri parkYer = new parkYeri();
-                parkYer.setId(rs.getInt("id"));
-                parkYer.setPlaka(rs.getString("plaka"));
-                parkYer.setGiris_saati(rs.getTimestamp("giris_saati"));
-                parkYer.setBosDolu(rs.getInt("bos_dolu"));
-
+                parkYer.fullSet(rs.getInt("id"), rs.getString("plaka"), rs.getTimestamp("giris_saati"), rs.getInt("bos_dolu"));
                 parkYerleri.add(parkYer);
             }
             con.close();

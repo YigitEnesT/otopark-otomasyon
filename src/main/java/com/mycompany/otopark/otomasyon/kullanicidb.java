@@ -64,7 +64,8 @@ public class kullanicidb {
                 //String veri = "Park Yeri ID: " + rs.getInt("id") + ", Plaka: " + rs.getString("plaka") + ", Giriş Saati: " + girisSaati + ", Tutar: " + fiyatHesapla(fark);
                 
                 admindb obj = new admindb();
-                mevcutArac.fullSet(rs.getInt("id"), rs.getString("plaka"),rs.getTimestamp("giris_saati"),rs.getInt("bos_dolu"), obj.fiyatHesapla(fark));
+                mevcutArac.fullSet(rs.getInt("id"), rs.getString("plaka"),rs.getTimestamp("giris_saati"),rs.getInt("bos_dolu"));
+                mevcutArac.setTutar(mevcutArac.mevcutTutar(giris_saati));
             }
 
             rs.close();

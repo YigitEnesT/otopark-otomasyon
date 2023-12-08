@@ -28,6 +28,11 @@ public class parkYeri {
 
     public void setPlaka(String plaka) {
         this.plaka = plaka;
+        String[] plakaBolumleri = plaka.split("-");
+
+        setPlakaBas(plakaBolumleri[0]); 
+        setPlakaOrta(plakaBolumleri[1]); 
+        setPlakaSon(plakaBolumleri[2]); 
     }
 
     public Timestamp getGiris_saati() {
@@ -62,22 +67,70 @@ public class parkYeri {
         this.tutar = tutar;
     }
 
-    public void fullSet(int id, String plaka, Timestamp giris_saati, int bosDolu, long tutar) {
+    public long getFark() {
+        return fark;
+    }
+
+    public void setFark(long fark) {
+        this.fark = fark;
+    }
+
+    public void fullSet(int id, String plaka, Timestamp giris_saati, int bosDolu) {
         this.id = id;
-        this.plaka = plaka;
+        setPlaka(plaka);
         this.giris_saati = giris_saati;
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
         setFormattedGiris_saati(sdf.format(giris_saati));
-
+        this.fark = (getTimestampNow().getTime() - giris_saati.getTime());
         this.bosDolu = bosDolu;
-        this.tutar = tutar;
     }
+
     private int id;
     private String plaka;
     private Timestamp giris_saati;
     private int bosDolu;
     private long tutar = 0;
     private String formattedGiris_saati;
+    private long fark;
+    private String plakaBas;
+    private String plakaOrta;
+
+    public String getPlakaBas() {
+        return plakaBas;
+    }
+
+    public void setPlakaBas(String plakaBas) {
+        this.plakaBas = plakaBas;
+    }
+
+    public String getPlakaOrta() {
+        return plakaOrta;
+    }
+
+    public void setPlakaOrta(String plakaOrta) {
+        this.plakaOrta = plakaOrta;
+    }
+
+    public String getPlakaSon() {
+        return plakaSon;
+    }
+
+    public void setPlakaSon(String plakaSon) {
+        this.plakaSon = plakaSon;
+    }
+    private String plakaSon;
+
+    public String getParkTime() {
+        long dakikaFarki = (getFark() / (60 * 1000));
+        if (dakikaFarki < 60) {
+            return dakikaFarki + "DK";
+        } else {
+            long saatFarki = dakikaFarki / 60;
+            dakikaFarki = dakikaFarki % 60;
+            return (saatFarki + " Saat " + dakikaFarki + " DK");
+        }
+    }
 
     public Timestamp getTimestampNow() {
         Date now = new Date();
@@ -86,6 +139,6 @@ public class parkYeri {
 
     public long mevcutTutar(Timestamp giris_saati) {
         admindb fiyat = new admindb();
-        return fiyat.fiyatHesapla((getTimestampNow().getTime() - giris_saati.getTime()));
+        return fiyat.fiyatHesapla(getFark());
     }
 }

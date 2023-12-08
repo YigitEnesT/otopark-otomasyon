@@ -88,7 +88,7 @@
                 <td class="veri"><%= aracBilgisi.getId()%></td>
                 <td class="veri"><%= aracBilgisi.getPlaka()%></td>
                 <td class="veri"><%= aracBilgisi.getFormattedGiris_saati()%></td>
-                <td class="veri"><%= aracBilgisi.getTutar()%></td>
+                <td class="veri"><%= aracBilgisi.mevcutTutar(aracBilgisi.getGiris_saati())%></td>
 
             </tr>
             <% }%>
