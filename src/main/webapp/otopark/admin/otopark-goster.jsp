@@ -45,6 +45,7 @@
     %>
 <div class="container-lg">
     <div class="product-page">
+        -<!-- deneme -->
 
         <div class="div">
             <% for (parkYeri parkYer : parkYerleri) {%>
@@ -63,6 +64,7 @@
                         <div class="overlap-4"><div class="text-wrapper-4">TR</div></div>
                         <div class="text-wrapper-5"><%= parkYer.getPlakaBas() %></div>
                         <div class="text-wrapper-6"><%= parkYer.getPlakaOrta() %></div>
+                        
                     </div>
                     <img class="screenshot" src="araba.png" />
                 </div>
