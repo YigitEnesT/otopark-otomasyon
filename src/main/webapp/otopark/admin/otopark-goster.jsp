@@ -46,7 +46,6 @@
 <div class="container-lg">
     <div class="product-page">
         -<!-- deneme -->
-
         <div class="div">
             <% for (parkYeri parkYer : parkYerleri) {%>
             <div class="tomato-2">  
@@ -57,20 +56,20 @@
                         out.print("Boş");
                     }
                     %></div>
-                <div class="text-wrapper-7"><%= parkYer.mevcutTutar(parkYer.getGiris_saati())%> TL</div>
+                    <div class="text-wrapper-7"><%= parkYer.mevcutTutar(parkYer.getGiris_saati()) %> TL</div>
                 <div class="overlap-3">
                     <div class="overlap-group-2">
                         <div class="text-wrapper-3"><%= parkYer.getPlakaSon() %></div>
                         <div class="overlap-4"><div class="text-wrapper-4">TR</div></div>
-                        <div class="text-wrapper-5"><%= parkYer.getPlakaBas() %></div>
+                        <div class="text-wrapper-5"><%= parkYer.getPlakaBas()  %></div>
                         <div class="text-wrapper-6"><%= parkYer.getPlakaOrta() %></div>
                         
                     </div>
                     <img class="screenshot" src="araba.png" />
                 </div>
-                <div class="text-wrapper-8"><%= parkYer.getParkTime()%></div>
-            </div>
-
+                <div class="text-wrapper-8"><%= parkYer.getParkTime() %></div>
+            </div>          
+            
             <% }
                 } catch (Exception e) {
                     e.printStackTrace();

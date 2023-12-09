@@ -65,7 +65,7 @@ public class kullanicidb {
                 
                 admindb obj = new admindb();
                 mevcutArac.fullSet(rs.getInt("id"), rs.getString("plaka"),rs.getTimestamp("giris_saati"),rs.getInt("bos_dolu"));
-                mevcutArac.setTutar(mevcutArac.mevcutTutar(giris_saati));
+                mevcutArac.setTutar(mevcutArac.mevcutTutar(rs.getTimestamp("giris_saati")));
             }
 
             rs.close();

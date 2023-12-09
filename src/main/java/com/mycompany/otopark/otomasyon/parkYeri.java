@@ -28,11 +28,18 @@ public class parkYeri {
 
     public void setPlaka(String plaka) {
         this.plaka = plaka;
-        String[] plakaBolumleri = plaka.split("-");
+        if (plaka != "-") {
+            String[] plakaBolumleri = plaka.split("-");
 
-        setPlakaBas(plakaBolumleri[0]); 
-        setPlakaOrta(plakaBolumleri[1]); 
-        setPlakaSon(plakaBolumleri[2]); 
+            setPlakaBas(plakaBolumleri[0]);
+            setPlakaOrta(plakaBolumleri[1]);
+            setPlakaSon(plakaBolumleri[2]);
+        } else {
+            setPlakaBas(" ");
+            setPlakaOrta(" ");
+            setPlakaSon(" ");
+        }
+
     }
 
     public Timestamp getGiris_saati() {
@@ -82,7 +89,13 @@ public class parkYeri {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
         setFormattedGiris_saati(sdf.format(giris_saati));
-        this.fark = (getTimestampNow().getTime() - giris_saati.getTime());
+        if (giris_saati != null) {
+            long fark2 = (getTimestampNow().getTime() - giris_saati.getTime());
+            setFark(fark2);
+        } else {
+            setFark(0);
+        }
+
         this.bosDolu = bosDolu;
     }
 
@@ -122,14 +135,19 @@ public class parkYeri {
     private String plakaSon;
 
     public String getParkTime() {
-        long dakikaFarki = (getFark() / (60 * 1000));
-        if (dakikaFarki < 60) {
-            return dakikaFarki + "DK";
+        if (getBosDolu() == 1) {
+            long dakikaFarki = (getFark() / (60 * 1000));
+            if (dakikaFarki < 60) {
+                return dakikaFarki + "DK";
+            } else {
+                long saatFarki = dakikaFarki / 60;
+                dakikaFarki = dakikaFarki % 60;
+                return (saatFarki + " Saat " + dakikaFarki + " DK");
+            }
         } else {
-            long saatFarki = dakikaFarki / 60;
-            dakikaFarki = dakikaFarki % 60;
-            return (saatFarki + " Saat " + dakikaFarki + " DK");
+            return "-";
         }
+
     }
 
     public Timestamp getTimestampNow() {
@@ -138,7 +156,12 @@ public class parkYeri {
     }
 
     public long mevcutTutar(Timestamp giris_saati) {
-        admindb fiyat = new admindb();
-        return fiyat.fiyatHesapla(getFark());
+        if (getBosDolu() == 1) {
+            long fark = getTimestampNow().getTime() - giris_saati.getTime() ;
+            admindb fiyat = new admindb();
+            return fiyat.fiyatHesapla(fark);
+        } else {
+            return 0;
+        }
     }
 }

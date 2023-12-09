@@ -20,6 +20,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author yetun
  */
 public class logindb {
+
     public static void main(String[] args) {
 
     }
@@ -78,8 +79,8 @@ public class logindb {
             if (girisZamani != null) {
                 long fark = cikis_saati.getTime() - girisZamani.getTime();
                 //long saatFarki = fark / ((60 * 60) * 1000); // Farkı dakika cinsine dönüştürme
-
-                tutar = fiyatHesapla(fark); // Dakika bazında fiyat hesaplaması
+                admindb fiyat = new admindb();
+                tutar = fiyat.fiyatHesapla(fark); // Dakika bazında fiyat hesaplaması
                 int park_yeri_id = getParkYeriID(plaka, con);
 
                 plakaTasi(con, park_yeri_id, plaka, tutar, girisZamani, cikis_saati);
@@ -112,23 +113,6 @@ public class logindb {
             System.out.println(e);
         }
         return girisZamani;
-    }
-
-    private long fiyatHesapla(long saatFarki) {
-        saatFarki = saatFarki / ((60 * 60) * 1000);
-
-        long tutar = 0;
-        if (saatFarki > 0 && saatFarki < 10) {
-            tutar = saatFarki * 10;
-        } else if (saatFarki < 30) {
-            tutar = saatFarki * 30;
-        } else if (saatFarki >= 30) {
-            tutar = saatFarki * 50;
-        } else {
-            tutar = 0;
-        }
-
-        return tutar;
     }
 
     public void plakaTasi(Connection con, long park_yeri_id, String plaka, long tutar, Timestamp giris_zamani, Timestamp cikis_zamani) {
@@ -203,7 +187,7 @@ public class logindb {
         return parkYeriID;
     }
 
-    public ArrayList<String> getAracVerileri( String plaka) {
+    public ArrayList<String> getAracVerileri(String plaka) {
         ArrayList<String> aracVerileri = new ArrayList<>();
 
         try {
@@ -244,8 +228,8 @@ public class logindb {
                 // Tüm sütunları al ve ArrayList'e ekle
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
                 String girisSaati = sdf.format(rs.getTimestamp("girissaati"));
-
-                String veri = "Park Yeri ID: " + rs.getLong("id") + ", Plaka: " + rs.getString("plaka") + ", Giriş Saati: " + girisSaati + ", Tutar: " + fiyatHesapla(fark);
+                admindb fiyat = new admindb();
+                String veri = "Park Yeri ID: " + rs.getLong("id") + ", Plaka: " + rs.getString("plaka") + ", Giriş Saati: " + girisSaati + ", Tutar: " + fiyat.fiyatHesapla(fark);
                 mevcutAraclar.add(veri);
             }
 
@@ -261,7 +245,7 @@ public class logindb {
     public boolean kayitYap(String isim, String soyisim, String eposta, String sifre) {
         boolean kayitBasarili = false;
         try {
-            
+
             Connection con = conGetir();
             sifre = hashPassword(sifre);
             PreparedStatement checkStmt = con.prepareStatement("SELECT COUNT(*) FROM kullanicilar WHERE eposta = ?");
