@@ -20,7 +20,7 @@ import java.util.Date;
 public class admindb {
 
     public static void main(String[] args) {
-        
+
     }
 
     private Connection conGetir() {
@@ -103,10 +103,8 @@ public class admindb {
     }
 
     public boolean deleteArac(String plaka) {
-        System.out.println("deneme1");
         boolean basari = false;
         long tutar = 0;
-        System.out.println("deneme2");
         Timestamp giris_saati = null;
         int park_yeri_id = 0;
         try {
@@ -144,19 +142,29 @@ public class admindb {
     }
 
     public long fiyatHesapla(long saatFarki) {
-        saatFarki = saatFarki / ((60 * 60) * 1000);// SAAT FARKI HESAPALAR
-
+        saatFarki = saatFarki / (60 * 60 * 1000);
         long tutar = 0;
-        if (saatFarki > 0 && saatFarki < 10) {
-            tutar = saatFarki * 10;
-        } else if (saatFarki < 30) {
-            tutar = saatFarki * 30;
-        } else if (saatFarki >= 30) {
-            tutar = saatFarki * 50;
-        } else {
-            tutar = 0;
-        }
+        kullanicidb tarife = new kullanicidb();
+        ArrayList<tarife> tarifeListem = tarife.getTarife();
 
+        for (tarife kayit : tarifeListem) {
+            int baslangic_saati = Integer.parseInt(kayit.getBaslangic_saati());
+            int ucret = kayit.getUcret();
+            if (kayit.getBitis_saati() == null) {
+                if (saatFarki >= baslangic_saati) {
+                    tutar = saatFarki * ucret;
+                    return tutar; // Eşleşme bulundu, döngüden çık
+                }
+            } else {
+                int bitis_saati = Integer.parseInt(kayit.getBitis_saati());
+                if (saatFarki >= baslangic_saati && saatFarki < bitis_saati) {
+                    tutar = saatFarki * ucret;
+                    return tutar; // Eşleşme bulundu, döngüden çık
+                }
+
+            }
+
+        }
         return tutar;
     }
 
@@ -251,7 +259,17 @@ public class admindb {
 
             while (rs.next()) {
                 parkYeri parkYer = new parkYeri();
-                parkYer.fullSet(rs.getInt("id"), rs.getString("plaka"), rs.getTimestamp("giris_saati"), rs.getInt("bos_dolu"));
+                Timestamp giris_saati = rs.getTimestamp("giris_saati");
+                String plaka = rs.getString("plaka");
+
+                if (plaka == null || plaka.isEmpty()) {
+                    plaka = "-";
+                }
+
+                if (giris_saati == null || plaka.isEmpty()) {
+                    giris_saati = getTimestampNow();
+                }
+                parkYer.fullSet(rs.getInt("id"), plaka, giris_saati, rs.getInt("bos_dolu"));
                 parkYerleri.add(parkYer);
             }
             con.close();

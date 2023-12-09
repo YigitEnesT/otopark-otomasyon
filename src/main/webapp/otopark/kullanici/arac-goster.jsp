@@ -88,7 +88,7 @@
                 <td class="veri"><%= aracBilgisi.getId()%></td>
                 <td class="veri"><%= aracBilgisi.getPlaka()%></td>
                 <td class="veri"><%= aracBilgisi.getFormattedGiris_saati()%></td>
-                <td class="veri"><%= aracBilgisi.mevcutTutar(aracBilgisi.getGiris_saati())%></td>
+                <td class="veri"><%= aracBilgisi.mevcutTutar(aracBilgisi.getGiris_saati()) + " TL"%></td>
 
             </tr>
             <% }%>
@@ -122,7 +122,7 @@
                 <td class="veri"><%= veri.split(", ")[1].split(": ")[1]%></td>
                 <td class="veri"><%= veri.split(", ")[2].split(": ")[1]%></td>
                 <td class="veri"><%= veri.split(", ")[3].split(": ")[1]%></td>
-                <td class="veri"><%= veri.split(", ")[4].split(": ")[1]%></td>
+                <td class="veri"><%= veri.split(", ")[4].split(": ")[1] + " TL"%></td>
             </tr>
             <% } %>
         </table>

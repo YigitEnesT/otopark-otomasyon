@@ -32,16 +32,20 @@
         <table class="table table-bordered table-hover mx-auto">
             <thead class="table-dark text-center">
                 <tr>
-                    <th scope="col">Başlangıç Saati</th>
-                    <th scope="col">Bitiş Saati</th>
+                    <th scope="col">Saat Aralığı</th>
                     <th scope="col">Saatlik Ücret</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 <% for (tarife veri : myList) {%>
                 <tr>
-                    <td><%= veri.getBaslangic_saati()%></td>
-                    <td><%= veri.getBitis_saati()%></td>
+                    <td><%
+                        if (veri.getBitis_saati() != null) {
+                            out.println(veri.getBaslangic_saati() + " - " + veri.getBitis_saati());
+                        }else{
+                            out.println(veri.getBaslangic_saati() + "+");
+                        }
+                        %></td>
                     <td><%= veri.getUcret()%> TL </td>
                 </tr>
                 <% } %>
