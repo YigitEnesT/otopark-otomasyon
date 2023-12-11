@@ -26,7 +26,7 @@ public class admindb {
     private Connection conGetir() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/deneme?useSSL=false";
+            String url = "jdbc:mysql://localhost:3306/otopark?useSSL=false";
             String username = "root";
             String password = "enes";
             Connection con = DriverManager.getConnection(url, username, password);
@@ -120,13 +120,12 @@ public class admindb {
                 giris_saati = rs.getTimestamp("giris_saati");
                 park_yeri_id = rs.getInt("id");
             }
-            System.out.println("Girdi");
+            System.out.println("Girdi - deleteArac()");
 
             if (giris_saati != null) {
                 Timestamp cikis_saati = getTimestampNow();
                 long fark = cikis_saati.getTime() - giris_saati.getTime();
                 tutar = fiyatHesapla(fark); // Dakika bazında fiyat hesaplaması
-
                 basari = plakaTasi(con, park_yeri_id, plaka, tutar, giris_saati, cikis_saati);
             }
 
@@ -172,7 +171,7 @@ public class admindb {
         boolean basari = false;
         try {
             con.setAutoCommit(false); // Transaction başlat
-
+            System.out.println("Girdi plakatasi");
             String countQuery = "SELECT COUNT(*) FROM gecmis WHERE plaka = ?";
             try (PreparedStatement checkStmt = con.prepareStatement(countQuery)) {
                 checkStmt.setString(1, plaka);
@@ -189,6 +188,7 @@ public class admindb {
                             stmt.setTimestamp(3, cikis_zamani);
                             stmt.setLong(4, tutar);
                             stmt.setString(5, plaka);
+                            System.out.println("İFE GİRDİ");
                         } else {
                             String insertQuery = "INSERT INTO gecmis (park_yeri_id, plaka, giris_saati, cikis_saati, tutar) VALUES (?, ?, ?, ?, ?)";
                             stmt = con.prepareStatement(insertQuery);
@@ -197,6 +197,7 @@ public class admindb {
                             stmt.setTimestamp(3, giris_zamani);
                             stmt.setTimestamp(4, cikis_zamani);
                             stmt.setLong(5, tutar);
+                            System.out.println("ELSE GİRDİ");
                         }
 
                         int affectedRows = stmt.executeUpdate();

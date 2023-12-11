@@ -1,20 +1,16 @@
-<%-- 
-    Document   : user-login
-    Created on : 8 Ara 2023, 14:08:25
-    Author     : yetun
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="tr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>JSP Page</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             font-family: sans-serif;
+            
         }
 
         .container {
@@ -31,41 +27,51 @@
             position: relative;
             margin: 8% auto;
             padding: 5px;
+            border-radius: 50px;
             overflow: hidden;
+            background: #f6f0e8;
+            box-shadow: 0 0 30px 10px #d6be9e;
+
         }
 
         .button-box {
-            width: 250px;
+            font-size: bold;
+            width: 221.5px;
             margin: 40px auto;
             position: relative;
-            box-shadow: 0 0 30px 10px #FDF7E4;
-            border-radius: 40px;
+            border: 1px solid #BBAB8C;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-between; /* Simetrik olması için ekledim */
         }
 
         .bttn {
-            padding: 10px 30px;
+            padding: 10px 20px 10px 20px;
             cursor: pointer;
             background: transparent;
             border: 0;
             outline: none;
             position: relative;
+            margin: auto;
+            font-weight: bold;
+            text-align: center;
         }
 
         #btn {
             top: 0;
             left: 0;
             position: absolute;
-            width: 110px;
+            width: 115px;
             height: 100%;
-            background: linear-gradient(to right,#BBAB8C, #FAEED1);
+            background: #BBAB8C;
             border-radius: 30px;
             transition: .5s;
         }
 
         .form-container {
-            top: 180px;
+            top: 160px;
             position: absolute;
-            width: 280px;
+            width: 300px;
             transition: .5s;
         }
 
@@ -73,12 +79,10 @@
             width: 100%;
             padding: 10px 0;
             margin: 5px 0;
-            border-left: 0;
-            border-top: 0;
-            border-right: 0;
-            border-bottom: 1px solid #FAEED1;
-            outline: none;
+            border: 1px solid #807a69;
+            border-radius: 30px;
             background: transparent;
+            text-align: center;
         }
 
         .submit-container {
@@ -86,11 +90,26 @@
             padding: 10px 30px;
             cursor: pointer;
             display: block;
-            margin: auto;
-            background: linear-gradient(to right, #BBAB8C, #FAEED1);
-            border: 0;
+            margin-left: 30px;
+            margin-top: 50px;
+            background: #BBAB8C;
+            border: 1px;
             outline: none;
-            border-radius: 30px
+            border-radius: 30px;
+                color: white;
+                font-weight: bold;   
+        }
+        
+        .submit-container:hover{
+            background: #6c675a;
+            color: wheat;
+            transition: background-color 0.5s; 
+            transition: color 0.5s; 
+        }
+        
+        a:hover{
+            color: #876f35;
+            transition: .5s;
         }
 
         #login-form {
@@ -100,14 +119,18 @@
         #register-form {
             left: 450px;
         }
-        a{
-            float: right;
+
+        a {
+            margin-left: 100px;
+            color: #BBAB8C;
         }
-        button{
-            margin-top: 10px !important ;
+
+        button {
+            margin-top: 10px !important;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-box">
@@ -116,20 +139,20 @@
                 <button type="button" class="bttn" onclick="login()">Giriş yap</button>
                 <button type="button" class="bttn" onclick="register()">Kayıt ol</button>
             </div>
-            <form action="login-islem.jsp" method="POST" id="login-form" class="form-container" >
+            <form action="login-islem.jsp" method="POST" id="login-form" class="form-container">
                 <input type="email" class="input-container" placeholder="Eposta adresini giriniz" name="eposta" required>
-                <input type="password" class="input-container" placeholder="Şifrenizi girin" name="sifre" required>
-                    <a href="reset-password.jsp"> Şifremi Unuttum </a>
+                <input type="password" class="input-container" placeholder="Şifrenizi giriniz" name="sifre" required>
+                <a href="reset-password.jsp"> Şifremi Unuttum </a>
                 <input type="submit" class="submit-container" value="Giriş Yap">
-                    <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
+                <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
             </form>
             <form action="register-islem.jsp" method="POST" id="register-form" class="form-container">
-                <input type="text" class="input-container" placeholder="İsminizi girin" name="isim" required>
-                <input type="text" class="input-container" placeholder="Soyadınızı girin" name="soyisim" required>
+                <input type="text" class="input-container" placeholder="İsminizi giriniz" name="isim" required>
+                <input type="text" class="input-container" placeholder="Soyadınızı giriniz" name="soyisim" required>
                 <input type="email" class="input-container" placeholder="Eposta adresini giriniz" name="eposta" required>
-                <input type="password" class="input-container" placeholder="Şifrenizi girin" name="sifre" required>
+                <input type="password" class="input-container" placeholder="Şifrenizi giriniz" name="sifre" required>
                 <input type="submit" class="submit-container" value="Kayıt Ol">
-                    <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
+                <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
             </form>
         </div>
     </div>
@@ -149,9 +172,11 @@
             registerForm.style.left = "450px";
             btn.style.left = "0px";
         }
+
         function goBack() {
-                window.location.href = '../home-page.jsp';
-            }
+            window.location.href = '../home-page.jsp';
+        }
     </script>
 </body>
+
 </html>

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : homepage
-    Created on : 8 Ara 2023, 16:05:55
-    Author     : yetun
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +6,6 @@
         <title>Giriş Ekranı</title>
 
         <style>
-
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 text-align: center;
@@ -22,16 +15,14 @@
                 justify-content: center;
                 height: 100vh;
                 margin: 0;
-                background: rgb(172,160,116);
-                background: radial-gradient(circle, rgba(172,160,116,1) 0%, rgba(197,187,153,1) 100%);
+                background: #d6be9e;
             }
 
             h1 {
-                color: #fff;
+                color: black;
                 font-weight: bolder;
                 text-decoration: underline;
                 text-underline-offset: 10px;
-
             }
 
             .form-container {
@@ -50,7 +41,7 @@
                 align-items: center;
                 border-radius: 50px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                background-color: rgba(9,67,121,1);
+                background-color: rgba(9, 67, 121, 0.9);
             }
 
             input[type="submit"] {
@@ -58,7 +49,7 @@
                 padding: 20px;
                 font-size: 16px;
                 cursor: pointer;
-                background-color: #4a483f; /* Daha koyu bir renk */
+                background-color: #846b4b; /* Daha koyu bir renk */
                 color: #fff;
                 font-weight: bold;
                 border: none;
@@ -67,12 +58,9 @@
             }
 
             input[type="submit"]:hover {
-                background-color: #ede5ca; /* Hover rengi */
-                color: #13304d;
-                transition: color 0.5s ease;
-                transition: background-color 0.5s ease;
-
-
+                background-color: wheat; /* Hover rengi */
+                color: black;
+                transition: color 0.5s ease, background-color 0.5s ease;
             }
         </style>
     </head>

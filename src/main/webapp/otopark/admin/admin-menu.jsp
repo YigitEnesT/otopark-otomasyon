@@ -26,7 +26,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">ADMİN- Hoş Geldiniz <%= adminName.getName()  %></a>
+            <a class="navbar-brand" href="admin-homepage.jsp">ADMİN- Hoş Geldiniz <%= adminName.getName()  %></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,6 +37,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="otopark-goster.jsp">Mevcut Otoparkı Gör</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-tarife.jsp">Tarife</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="admin-register.jsp">Yeni Admin Ekle</a>

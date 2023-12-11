@@ -94,7 +94,7 @@
                 <td class="veri"><%= aracBilgisi.getId()%></td>
                 <td class="veri"><%= aracBilgisi.getPlaka()%></td>
                 <td class="veri"><%= aracBilgisi.getFormattedGiris_saati()%></td>
-                <td class="veri"><%= aracBilgisi.getTutar()%></td>
+                <td class="veri"><%= aracBilgisi.getTutar() + " TL"%></td>
 
             </tr>
             <% }%>
@@ -123,14 +123,20 @@
                 <th>Çıkış Saati</th>
                 <th>Tutar</th>
             </tr>
+            <% if (gecmisAraclar.isEmpty()) { %>
+            <tr>
+                <td class="hata" colspan="5">Böyle bir kayıt bulunamadı.</td>
+            </tr>
+            <% } else { %>
             <% for (String veri : gecmisAraclar) {%>
             <tr>
                 <td class="veri"><%= veri.split(", ")[0].split(": ")[1]%></td>
                 <td class="veri"><%= veri.split(", ")[1].split(": ")[1]%></td>
                 <td class="veri"><%= veri.split(", ")[2].split(": ")[1]%></td>
                 <td class="veri"><%= veri.split(", ")[3].split(": ")[1]%></td>
-                <td class="veri"><%= veri.split(", ")[4].split(": ")[1]%></td>
+                <td class="veri"><%= veri.split(", ")[4].split(": ")[1] + " TL"%></td>
             </tr>
+            <% } %>
             <% } %>
         </table>
         <%

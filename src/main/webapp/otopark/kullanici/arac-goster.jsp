@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.Arrays"%>
 <%@page import="com.mycompany.otopark.otomasyon.parkYeri"%>
 <%@page import="com.mycompany.otopark.otomasyon.kullanicidb"%>
 <%@page import="com.mycompany.otopark.otomasyon.logindb"%>
@@ -37,7 +38,7 @@
             }
             th {
                 background-color: #f2f2f2;
-                
+
             }
             .veri {
                 font-weight: bold;
@@ -50,7 +51,7 @@
             h2{
                 text-align: center;
             }
-           
+
         </style>
     </head>
     <body>
@@ -65,6 +66,35 @@
                 if (numberPlaka != null && textPlaka != null && formattedPlaka != null) {
                     String birlesikPlaka = numberPlaka + "-" + textPlaka.toUpperCase() + "-" + formattedPlaka;
                     try {
+                        Cookie[] cookies = request.getCookies();
+                        Cookie plakaCookie = null;
+                        if (cookies != null) {
+                            for (Cookie cookie : cookies) {
+                                if (cookie.getName().equals("plakaCookie")) {
+                                    plakaCookie = cookie;
+                                    break;
+                                }
+                            }
+                        }
+                        if (plakaCookie == null) {
+                            plakaCookie = new Cookie("plakaCookie", birlesikPlaka);
+                        } else {
+                            String[] values = plakaCookie.getValue().split("\\|");
+                            ArrayList<String> plakaList = new ArrayList<>(Arrays.asList(values));
+                            plakaList.add(birlesikPlaka);
+                            plakaCookie.setValue(String.join("|", plakaList));
+                        }
+
+                        // Cookie'nin ömrünü ayarla ve tarayıcıya gönder
+                        plakaCookie.setMaxAge(24 * 60 * 60); // Örnek olarak 1 gün
+                        response.addCookie(plakaCookie);
+                    } catch (Exception e) {
+                        System.out.println("Cookie oluşturulurken bir hata oluştu: zort " + e.getMessage());
+                    }
+                    try {
+                        // Cookie Kısımları:
+
+                        // Veritabanı kısımları
                         kullanicidb aracSorgu = new kullanicidb();
                         parkYeri aracBilgisi = new parkYeri();
                         aracBilgisi = aracSorgu.getMevcutArac(birlesikPlaka);
@@ -102,7 +132,7 @@
         <!-- Çıkış yapmış araçların son etkinliklerini gösteren tablo -->
         <%
             try {
-               
+
                 logindb obj = new logindb();
                 ArrayList<String> gecmisAraclar = obj.getAracVerileri(birlesikPlaka); // Çıkış yapmış araçların son etkinliklerini al
 
@@ -116,6 +146,11 @@
                 <th>Çıkış Saati</th>
                 <th>Tutar</th>
             </tr>
+            <% if (gecmisAraclar.isEmpty()) { %>
+            <tr>
+                <td class="hata" colspan="5">Böyle bir kayıt bulunamadı.</td>
+            </tr>
+            <% } else { %>
             <% for (String veri : gecmisAraclar) {%>
             <tr>
                 <td class="veri"><%= veri.split(", ")[0].split(": ")[1]%></td>
@@ -125,9 +160,11 @@
                 <td class="veri"><%= veri.split(", ")[4].split(": ")[1] + " TL"%></td>
             </tr>
             <% } %>
+            <% } %>
+
         </table>
         <%
-                
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

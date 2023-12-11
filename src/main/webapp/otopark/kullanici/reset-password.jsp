@@ -1,139 +1,146 @@
-<%-- 
-    Document   : user-login
-    Created on : 8 Ara 2023, 14:08:25
-    Author     : yetun
---%>
-
-
 <%@page import="com.mycompany.otopark.otomasyon.logindb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Şifremi Yenile</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
+        <title>Şifremi Yenile</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+            }
 
-        .container {
-            height: 100%;
-            width: 100%;
-            background-position: center;
-            background-size: cover;
-            position: absolute;
-        }
+            .container {
+                height: 100%;
+                width: 100%;
+                background-position: center;
+                background-size: cover;
+                position: absolute;
+            }
 
-        .form-box {
-            width: 400px;
-            height: 500px;
-            position: relative;
-            margin: 8% auto;
-            padding: 5px;
-            overflow: hidden;
-        }
+            .form-box {
+                width: 400px;
+                height: 500px;
+                position: relative;
+                margin: 8% auto;
+                padding: 5px;
+                overflow: hidden;
+                border-radius: 50px;
+                box-shadow: 0 0 30px 10px #d6be9e;
+                background: #f6f0e8;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
 
-        .button-box {
-            width: 250px;
-            margin: 40px auto;
-            position: relative;
-            box-shadow: 0 0 30px 10px #FDF7E4;
-            border-radius: 40px;
-        }
-         h1 {
-            text-align: center;
-            color: #333;
-        }
+            .button-box {
+                width: 250px;
+                margin: 40px auto;
+                position: relative;
+                box-shadow: 0 0 30px 10px #FDF7E4;
+                border-radius: 40px;
+            }
 
-        .bttn {
-            padding: 10px 30px;
-            cursor: pointer;
-            background: transparent;
-            border: 0;
-            outline: none;
-            position: relative;
-        }
+            h1 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 20px;
+            }
 
-        #btn {
-            top: 0;
-            left: 0;
-            position: absolute;
-            width: 110px;
-            height: 100%;
-            background: linear-gradient(to right,#BBAB8C, #FAEED1);
-            border-radius: 30px;
-            transition: .5s;
-        }
+            .form-container {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
-        .form-container {
-            top: 180px;
-            position: absolute;
-            width: 280px;
-            transition: .5s;
-        }
+            .input-container {
+                width: 85%;
+                padding: 10px 0;
+                margin: 5px 5px;
+                border: 1px solid #846b4b;
+                border-radius: 30px;
+                outline: none;
+                background: transparent;
+                transition: border-color 0.3s;
+                text-align: center;
+            }
 
-        .input-container {
-            width: 100%;
-            padding: 10px 0;
-            margin: 5px 0;
-            border-left: 0;
-            border-top: 0;
-            border-right: 0;
-            border-bottom: 1px solid #FAEED1;
-            outline: none;
-            background: transparent;
-        }
+            .submit-container {
+                width: 85%;
+                padding: 10px 30px;
+                cursor: pointer;
+                display: block;
+                margin: 30px 20px 0px 20px;
+                background: #BBAB8C;
+                border: 1px solid #BBAB8C;
+                outline: none;
+                border-radius: 30px;
+                color: #fff;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
 
-        .submit-container {
-            width: 85%;
-            padding: 10px 30px;
-            cursor: pointer;
-            display: block;
-            margin: auto;
-            background: linear-gradient(to right, #BBAB8C, #FAEED1);
-            border: 0;
-            outline: none;
-            border-radius: 30px
-        }
-        button{
-            margin-top: 10px !important ;
-        }
+            .submit-container:hover{
+                background: #6c675a;
+            color: wheat;
+            transition: background-color 0.5s; 
+            transition: color 0.5s; 
 
-    </style>
-</head>
-<body>
+            }
+            
+            button {
+                margin-top: 10px !important;
+            }
+
+        </style>
+    </head>
+
+    <body>
     <div class="container">
         <div class="form-box">
-            <h1>Kullanıcı Şifremi Unuttum</h1>
-            <form action="" method="POST" id="login-form" class="form-container" >
+            <h1>Şifremi Unuttum</h1>
+            <form action="" method="POST" id="login-form" class="form-container">
                 <input type="email" class="input-container" placeholder="Eposta adresini giriniz" name="eposta" required>
                 <input type="password" class="input-container" placeholder="Şifrenizi girin" name="sifre" required>
                 <input type="submit" class="submit-container" value="Şifremi Yenile">
                 <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
             </form>
-            
         </div>
     </div>
 
-<%
-            String eposta = request.getParameter("eposta");
-            String sifre = request.getParameter("sifre");
+    <%
+        String eposta = request.getParameter("eposta");
+        String sifre = request.getParameter("sifre");
 
-            if (eposta != null && sifre != null) {
-                logindb obj = new logindb();
-                if (obj.resetPass(eposta, sifre)) {
-                    response.sendRedirect("kullanici-loginpage.jsp");
-                }
-            }
+        if (eposta != null && sifre != null) {
+            logindb obj = new logindb();
+            if (obj.resetPass(eposta, sifre)) {
+    %>
+                <script>
+                    alert("Şifreniz başarıyla yenilendi!");
+                    window.location.href = "kullanici-loginpage.jsp";
+                </script>
+    <%
+            }else{
+    %>
+                <script>
+                    alert("Şifreniz yenilenemedi!");
+                    window.location.href = "kullanici-loginpage.jsp";
+                </script>
+    <%
+}
+        }
+    %>
 
-        %>
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

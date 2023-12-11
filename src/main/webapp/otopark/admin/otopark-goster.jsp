@@ -43,13 +43,15 @@
             parkYerleri = obj.getOtoparkDurumu(); // Veritabanından park yerlerini al
 
     %>
+    <h1 class="text-center mt-5 mb-4">OTOPARK DOLULUĞU : <%= obj.getDoluluk() %>/12</h1>
 <div class="container-lg">
     <div class="product-page">
-        -<!-- deneme -->
+        
         <div class="div">
+            
             <% for (parkYeri parkYer : parkYerleri) {%>
             <div class="tomato-2">  
-                <div class="plakaya-ait-kullan-c-2"><%
+                <div class="plakaya-ait-kullan-c-2" style="color: <%= (parkYer.getBosDolu() == 1) ? "red" : "green" %>;"><%
                     if (parkYer.getBosDolu() == 1) {
                         out.print("Dolu");
                     } else {

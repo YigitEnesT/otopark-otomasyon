@@ -28,22 +28,43 @@
             
             admindb db = new admindb();
             if (value.equals("Plaka Gönder")) {
-                if (db.addParkYeri(birlesikPlaka)) 
+                if (db.addParkYeri(birlesikPlaka)) // buraya bak
                 {
-                        out.println("Plaka Eklendi.");
-                        response.sendRedirect("admin-homepage.jsp");
+                        %>
+                        <script>
+                            alert("Plaka eklemesi başarılı!");
+                            window.location.href = "admin-homepage.jsp";
+                        </script>
+                        <%
                 }
                 else{
-                    out.println("Plaka ekleme olmadı.");
+                    %>
+                    <script>
+                        alert("Plaka eklemesi başarısız!");
+                        window.location.href = "admin-homepage.jsp";
+                    </script>
+                    <%
                 }
                 
             } else if (value.equals("Plaka Sil")) {
                 if (db.deleteArac(birlesikPlaka)) {
-                    out.println("Plaka Silindi.");
-                    response.sendRedirect("admin-homepage.jsp");
+                    %>
+                    <script>
+                        alert("Plaka silme başarılı!");
+                    </script>
+                        
+                    <%
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("arac-sorgu.jsp");
+                        dispatcher.forward(request, response);
                 }
                 else{
-                    out.println("Silme İşlemi Başarısız!");
+                    %>
+                    <script>
+                        alert("Plaka silme başarısız!");
+                        window.location.href = "admin-homepage.jsp";
+                    </script>
+                    <%
+
                 }
                 
                 
@@ -51,7 +72,13 @@
                 RequestDispatcher dispatcher = request.getRequestDispatcher("arac-sorgu.jsp");
                 dispatcher.forward(request, response);
             }else {
-                out.println("HATA!");
+                %>
+                    <script>
+                        alert("Plaka sorgu başarısız!");
+                        window.location.href = "admin-homepage.jsp";
+                    </script>
+                    <%
+
             }
         }
 

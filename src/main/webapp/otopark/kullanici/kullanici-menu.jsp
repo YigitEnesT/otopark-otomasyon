@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="username" class="com.mycompany.otopark.otomasyon.nameSession" scope="session" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,77 +13,12 @@
     <title>Menü Sayfası</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Body stilini özelleştirme */
-        body {
-            padding-top: 100px; /* Navbar'ın sayfa içeriği üzerinde kalmasını sağlar */
-            background-color: #bab494; 
-            transition: background-color 0.5s ease; /* Sayfa arka plan rengi üzerinde geçiş efekti */
+         body {
+            padding-top: 60px; /* Navbar'ın sayfa içeriği üzerinde kalmasını sağlar */
         }
-
-        /* Navbar stilini özelleştirme */
-        .navbar {
-            background-color: #373633; /* Navbar arka plan rengi */
-            transition: background-color 0.5s ease; /* Navbar arka plan rengi üzerinde geçiş efekti */
-            
-        }
-
-        /* Navbar marka (brand) yazı stilini özelleştirme */
-        .navbar-brand {
-            color: #ffffff !important; /* Navbar yazı rengi */
-            transition: color 0.5s ease; /* Navbar yazı rengi üzerinde geçiş efekti */
-            
-        }
-
-        /* Navbar açılır menü simgesi stilini özelleştirme */
-        .navbar-toggler-icon {
-            /* Navbar açılır menü simgesi */
-        }
-
-        /* Navbar link yazı stilini özelleştirme */
-        .navbar-nav .nav-link {
-            color: #ffffff !important; /* Navbar link yazı rengi */
-            transition: color 0.5s ease; /* Navbar link yazı rengi üzerinde geçiş efekti */
-        }
-
-        /* Navbar link hover stilini özelleştirme */
-        .navbar-nav .nav-link:hover {
-            color: #bab494 !important; /* Navbar link hover rengi */
-            
-        }
-
-        /* Navbar açılır menü simgesi stilini özelleştirme */
-        .navbar-toggler {
-            border-color: #373633; /* Navbar açılır menü simgesi çerçeve rengi */
-            transition: border-color 0.5s ease; /* Navbar açılır menü simgesi çerçeve rengi üzerinde geçiş efekti */
-        }
-
-        /* Navbar açılır menü simgesi hover stilini özelleştirme */
-        .navbar-toggler:hover {
-            background-color: gray; /* Navbar açılır menü simgesi hover rengi */
-            transition: background-color 0.5s ease; 
-            color: #373633;
-        }
-        
-
-        /* Çıkış yap butonu stilini özelleştirme */
+        /* Çıkış yap butonu için özel stil */
         .logout-button {
             margin-right: 10px; /* Diğer butonlardan biraz uzaklaştırma */
-            background-color: #bab494; 
-            border: 1px #373633 solid;
-            border-radius: 15px;
-            color: black;
-            transition: background-color 0.5s ease; /* Çıkış yap butonu arka plan rengi üzerinde geçiş efekti */
-        }
-
-        /* Çıkış yap butonu hover stilini özelleştirme */
-        .logout-button:hover {
-            background-color: #dc3545; /* Çıkış yap butonu hover rengi */
-            transition: color 0.5s ease;
-        }
-
-        /* Navbar içindeki container'ın stilleri */
-        .container {
-            padding: 0; /* Container içindeki boşlukları kaldırma */
         }
     </style>
 </head>
@@ -90,7 +26,7 @@
     <!-- Navbar kodları burada... -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Hoş Geldiniz <%= username.getName() %></a>
+            <a class="navbar-brand" href="kullanici-homepage.jsp">Hoş Geldin <%= username.getName()%></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -101,6 +37,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="kullanici-tarife.jsp">Tarife Gör</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gecmis-sorgular.jsp">Geçmiş Sorgular</a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">

@@ -24,13 +24,18 @@
         
         if((obj.checkUser(eposta, sifre, request))){
             session.setAttribute("isLogin", "true");
-            response.sendRedirect("kullanici-homepage.jsp");
+                %>
+                        <script>
+                            window.location.href = "kullanici-homepage.jsp";
+                        </script>
+                        <%
             
         }
-        else{
-            out.println("GİRİŞ BAŞARISIZ");
-        }
-            
-        %>
+        else{%>
+        <script>
+            alert("Giriş Başarısız!");
+            window.location.href = "kullanici-loginpage.jsp";
+        </script>;
+        <%}%>
 </body>
 </html>

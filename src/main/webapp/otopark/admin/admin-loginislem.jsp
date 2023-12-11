@@ -22,12 +22,19 @@
 
         if ((obj.checkAdmin(eposta, sifre, request))) {
             session.setAttribute("isAdmin", "true");
-            response.sendRedirect("admin-homepage.jsp");
+            %>
+                        <script>
+                            window.location.href = "admin-homepage.jsp";
+                        </script>
+                        <%
 
-        } else {
-            out.println("GİRİŞ BAŞARISIZ");
+        } else {%>
+            <script>
+            alert("Giriş Başarısız Oldu!");
+            window.location.href = "admin-loginpage.jsp";
+        </script>;
+        <%
         }
-
-    %>
+        %>
 </body>
 </html>

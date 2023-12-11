@@ -1,10 +1,3 @@
-<%-- 
-    Document   : register_deneme
-    Created on : 8 Ara 2023, 14:35:44
-    Author     : yetun
---%>
-
-
 <%@page import="com.mycompany.otopark.otomasyon.logindb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,56 +8,61 @@
 </head>
 <body>
     <%
-            request.setCharacterEncoding("utf-8");
-            
-            String isim = request.getParameter("isim");
-            String soyisim = request.getParameter("soyisim");
-            String eposta = request.getParameter("eposta");
-            String sifre = request.getParameter("sifre");
+        request.setCharacterEncoding("utf-8");
 
-            
-            boolean isValid = true;
-            StringBuilder errorMessage = new StringBuilder();
+        String isim = request.getParameter("isim");
+        String soyisim = request.getParameter("soyisim");
+        String eposta = request.getParameter("eposta");
+        String sifre = request.getParameter("sifre");
 
-            if (isim == null || isim.isEmpty()) {
-                isValid = false;
-                errorMessage.append("İsim alanı boş olamaz.<br>");
-            }
-            if (soyisim == null || soyisim.isEmpty()) {
-                isValid = false;
-                errorMessage.append("Soyisim alanı boş olamaz.<br>");
+        boolean isValid = true;
+        StringBuilder errorMessage = new StringBuilder();
+
+        if (isim == null || isim.isEmpty()) {
+            isValid = false;
+            errorMessage.append("İsim alanı boş olamaz");
         }
-            if (eposta == null || eposta.isEmpty()) {
-                isValid = false;
-                errorMessage.append("Geçerli bir e-posta adresi giriniz.<br>");
-            }
-            if (sifre == null || sifre.length() < 5) {
-                isValid = false;
-                errorMessage.append("Şifre en az 5 karakter olmalıdır.<br>");
-            }
+        if (soyisim == null || soyisim.isEmpty()) {
+            isValid = false;
+            errorMessage.append("Soyisim alanı boş olamaz.");
+        }
+        if (eposta == null || eposta.isEmpty()) {
+            isValid = false;
+            errorMessage.append("Geçerli bir e-posta adresi giriniz.<br>");
+        }
+        if (sifre == null || sifre.length() < 5) {
+            isValid = false;
+            errorMessage.append("Şifre en az 5 karakter olmalıdır.<br>");
+        }
 
-            if (!isValid) {
-                out.println("<p style='color: red;'>" + errorMessage.toString() + "</p>");
-            } else {
-                logindb obj = new logindb();
-                boolean kayitSonucu = obj.kayitYap(isim, soyisim, eposta, sifre);
-                if (kayitSonucu) {
-                    if ((obj.checkUser(eposta, sifre, request))) {
+        if (!isValid) {
+            out.println("<script>");
+            out.println("alert('" + errorMessage.toString() + "');");
+            out.println("window.location.href = 'kullanici-loginpage.jsp';");
+            out.println("</script>");
+        } else {
+            logindb obj = new logindb();
+            boolean kayitSonucu = obj.kayitYap(isim, soyisim, eposta, sifre);
+            if (kayitSonucu) {
+                if ((obj.checkUser(eposta, sifre, request))) {
                         session.setAttribute("isLogin", "true");
-                        response.sendRedirect("kullanici-homepage.jsp");
-
-                    } else {
-                        out.println("GİRİŞ BAŞARISIZ");
+                         %>
+                        <script>
+                            alert('Kullanıcı Kaydı Başarılı!... \n Giriş Yapılıyor.');
+                            window.location.href = "kullanici-homepage.jsp";
+                        </script>
+                        <%
                     }
-
-                } else {
-                    // Kayıt başarısız durumu, hata mesajı veya farklı bir işlem yapılabilir
-                    out.println("<p style='color: red;'>Kayıt başarısız oldu!</p>");
+                else{
+                    response.sendRedirect("kullanici-loginpage.jsp");
                 }
-
-            
-
-            }
-    %>
+            } else { %>
+            <script>
+                alert("Kayıt başarısız!");
+                window.location.href = "kullanici-loginpage.jsp";
+            </script>
+            <%}
+        }%>
+        
 </body>
 </html>
