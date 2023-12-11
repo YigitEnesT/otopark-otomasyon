@@ -68,11 +68,7 @@ public class logindb {
     public void veriSil(String plaka, Timestamp cikis_saati) {
         long tutar = 10;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/deneme?useSSL=false";
-            String username = "root";
-            String password = "enes";
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = conGetir();
 
             Timestamp girisZamani = getGirisZamani(plaka, con); // Örnek bir fonksiyon, gerçek fonksiyonunuz bu işi yapmalı
 
