@@ -105,6 +105,7 @@
         <div class="form-box">
             <h1>Şifremi Unuttum</h1>
             <form action="" method="POST" id="login-form" class="form-container">
+                <input type="text" class="input-container" placeholder="İsminizi giriniz" name="isim" required> 
                 <input type="email" class="input-container" placeholder="Eposta adresini giriniz" name="eposta" required>
                 <input type="password" class="input-container" placeholder="Şifrenizi girin" name="sifre" required>
                 <input type="submit" class="submit-container" value="Şifremi Yenile">
@@ -114,12 +115,13 @@
     </div>
 
     <%
+        String isim = request.getParameter("isim");
         String eposta = request.getParameter("eposta");
         String sifre = request.getParameter("sifre");
 
         if (eposta != null && sifre != null) {
             logindb obj = new logindb();
-            if (obj.resetPass(eposta, sifre)) {
+            if (obj.resetPass(isim, eposta, sifre)) {
     %>
                 <script>
                     alert("Şifreniz başarıyla yenilendi!");

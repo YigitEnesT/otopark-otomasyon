@@ -377,18 +377,19 @@ public class logindb {
         return isValidUser;
     }
 
-    public boolean resetPass(String eposta, String sifre) {
+    public boolean resetPass(String isim ,String eposta, String sifre) {
         boolean basari = false;
         try {
             Connection con = conGetir();
 
-            String query = "SELECT sifre FROM kullanicilar WHERE eposta = ?";
+            String query = "SELECT * FROM kullanicilar WHERE eposta = ? AND isim= ?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, eposta);
+            stmt.setString(2, isim);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String updateQuery = "UPDATE kullanicilar SET sifre = ? WHERE eposta= ?";
+                String updateQuery = "UPDATE kullanicilar SET sifre = ? WHERE eposta= ? ";
                 stmt = con.prepareStatement(updateQuery);
                 sifre = hashPassword(sifre);
                 stmt.setString(1, sifre);
