@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Giriş Ekranı</title>
+        <title>ANA SAYFA</title>
 
         <style>
             body {

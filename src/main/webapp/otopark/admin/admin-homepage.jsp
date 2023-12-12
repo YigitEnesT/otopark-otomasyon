@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Sayfası</title>
+        <title>Admin Ana Sayfa</title>
         <style>
             body {
                 font-family: Arial, sans-serif;

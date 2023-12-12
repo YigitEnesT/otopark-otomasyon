@@ -7,12 +7,6 @@
 <%@page import="com.mycompany.otopark.otomasyon.logindb"%>
 <%@page import="com.mycompany.otopark.otomasyon.parkYeri"%>
 <%@page import="com.mycompany.otopark.otomasyon.kullanicidb"%>
-<%-- 
-    Document   : aracsil2
-    Created on : 29 Kas 2023, 21:47:36
-    Author     : yetun
---%>
-
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.DriverManager"%>

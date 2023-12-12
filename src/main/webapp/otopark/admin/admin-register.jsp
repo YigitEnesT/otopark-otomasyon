@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Kayıt Ekranı</title>
+        <title>Admin Kayıt Ekranı</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
