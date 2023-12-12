@@ -40,9 +40,10 @@ public class admindb {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         boolean basari = false;
+        Connection con = null;
 
         try {
-            Connection con = conGetir();
+            con = conGetir();
             PreparedStatement checkStmt = con.prepareStatement("SELECT COUNT(*) FROM `mevcut-otopark` WHERE plaka = ?");
             checkStmt.setString(1, plaka);
             ResultSet checkRs = checkStmt.executeQuery();
@@ -98,6 +99,9 @@ public class admindb {
             if (stmt != null) {
                 stmt.close();
             }
+            if (con != null) {
+                con.close();
+            }
         }
         return basari;
     }
@@ -107,9 +111,11 @@ public class admindb {
         long tutar = 0;
         Timestamp giris_saati = null;
         int park_yeri_id = 0;
+        Connection con = null;
+
         try {
 
-            Connection con = conGetir();
+            con = conGetir();
 
             String sql = "SELECT * FROM `mevcut-otopark` WHERE plaka = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -130,6 +136,14 @@ public class admindb {
             }
 
         } catch (Exception e) {
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
 
         return basari;
@@ -251,10 +265,10 @@ public class admindb {
         ArrayList<parkYeri> parkYerleri = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+        Connection con = null;
         try {
             String query = "SELECT * FROM `mevcut-otopark`";
-            Connection con = conGetir();
+            con = conGetir();
             stmt = con.prepareStatement(query);
             rs = stmt.executeQuery();
 
@@ -283,6 +297,9 @@ public class admindb {
             if (stmt != null) {
                 stmt.close();
             }
+            if (con != null) {
+                con.close();
+            }
         }
 
         return parkYerleri;
@@ -290,9 +307,10 @@ public class admindb {
 
     public int getDoluluk() {
         int doluluk = 0;
+        Connection con = null;
         try {
             String sql = "SELECT COUNT(*) AS sayi FROM `mevcut-otopark` WHERE bos_dolu = 1";
-            Connection con = conGetir();
+            con = conGetir();
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -304,6 +322,14 @@ public class admindb {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
         return doluluk;
     }

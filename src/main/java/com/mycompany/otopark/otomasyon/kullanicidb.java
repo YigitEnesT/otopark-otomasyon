@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,37 +35,36 @@ public class kullanicidb {
         }
         return null;
     }
-    public  Timestamp getTimestampNow() 
-    {
+
+    public Timestamp getTimestampNow() {
         Date now = new Date();
         return new Timestamp(now.getTime());
     }
+
     public parkYeri getMevcutArac(String plaka) {
         parkYeri mevcutArac = new parkYeri();
-        
+        Connection con = null;
+
         try {
-            Connection con = conGetir();
-            
+            con = conGetir();
+
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM `mevcut-otopark` WHERE plaka = ?");
             stmt.setString(1, plaka);
             ResultSet rs = stmt.executeQuery();
 
-           
-            
             while (rs.next()) {
                 Timestamp giris_saati = rs.getTimestamp("giris_saati");
                 Timestamp mevcut_saat = getTimestampNow();
                 long fark = (mevcut_saat.getTime() - giris_saati.getTime());
-                
+
                 // Tüm sütunları al ve ArrayList'e ekle
                 SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
                 String girisSaati = sdf.format(rs.getTimestamp("giris_saati"));
-                
+
                 // Önceden Yaptığım işlem
                 //String veri = "Park Yeri ID: " + rs.getInt("id") + ", Plaka: " + rs.getString("plaka") + ", Giriş Saati: " + girisSaati + ", Tutar: " + fiyatHesapla(fark);
-                
                 admindb obj = new admindb();
-                mevcutArac.fullSet(rs.getInt("id"), rs.getString("plaka"),rs.getTimestamp("giris_saati"),rs.getInt("bos_dolu"));
+                mevcutArac.fullSet(rs.getInt("id"), rs.getString("plaka"), rs.getTimestamp("giris_saati"), rs.getInt("bos_dolu"));
                 mevcutArac.setTutar(mevcutArac.mevcutTutar(rs.getTimestamp("giris_saati")));
             }
 
@@ -72,21 +72,30 @@ public class kullanicidb {
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
 
         return mevcutArac;
     }
-    
-    public ArrayList<tarife> getTarife(){
+
+    public ArrayList<tarife> getTarife() {
         ArrayList<tarife> myList = new ArrayList<tarife>();
+        Connection con = null;
         try {
-            Connection con = conGetir();
+            con = conGetir();
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM `tarife`");
             ResultSet rs = stmt.executeQuery();
-           
+
             while (rs.next()) {
                 tarife kayit = new tarife();
-                
+
                 kayit.setBaslangic_saati(rs.getString("baslangic_saati"));
                 kayit.setBitis_saati(rs.getString("bitis_saati"));
                 kayit.setUcret(rs.getInt("ucret"));
@@ -95,6 +104,14 @@ public class kullanicidb {
 
             con.close();
         } catch (Exception e) {
+        }finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
         return myList;
     }

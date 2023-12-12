@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,47 +51,6 @@ public class logindb {
         return null;
     }
 
-    public void veriEkle(String plaka, Timestamp giris_saati) {
-        try {
-            Connection con = conGetir();
-
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO `otopark`(`plaka`, `girissaati`) VALUES (?, ?)");
-            stmt.setString(1, plaka);
-            stmt.setTimestamp(2, giris_saati);
-            stmt.executeUpdate();
-            stmt.close();
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void veriSil(String plaka, Timestamp cikis_saati) {
-        long tutar = 10;
-        try {
-            Connection con = conGetir();
-
-            Timestamp girisZamani = getGirisZamani(plaka, con); // Örnek bir fonksiyon, gerçek fonksiyonunuz bu işi yapmalı
-
-            if (girisZamani != null) {
-                long fark = cikis_saati.getTime() - girisZamani.getTime();
-                //long saatFarki = fark / ((60 * 60) * 1000); // Farkı dakika cinsine dönüştürme
-                admindb fiyat = new admindb();
-                tutar = fiyat.fiyatHesapla(fark); // Dakika bazında fiyat hesaplaması
-                int park_yeri_id = getParkYeriID(plaka, con);
-
-                plakaTasi(con, park_yeri_id, plaka, tutar, girisZamani, cikis_saati);
-
-            } else {
-                System.out.println("Plakaya ait giriş zamanı bulunamadı!");
-            }
-
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     public Timestamp getGirisZamani(String plaka, Connection con) {
         Timestamp girisZamani = null;
         try {
@@ -109,54 +69,6 @@ public class logindb {
             System.out.println(e);
         }
         return girisZamani;
-    }
-
-    public void plakaTasi(Connection con, long park_yeri_id, String plaka, long tutar, Timestamp giris_zamani, Timestamp cikis_zamani) {
-        try {
-            PreparedStatement checkStmt = con.prepareStatement("SELECT COUNT(*) FROM gecmis WHERE plaka = ?");
-            checkStmt.setString(1, plaka);
-            ResultSet rs = checkStmt.executeQuery();
-
-            rs.next();
-            int rowCount = rs.getInt(1);
-
-            rs.close();
-            checkStmt.close();
-
-            PreparedStatement stmt;
-
-            if (rowCount > 0) {
-
-                stmt = con.prepareStatement("UPDATE gecmis SET park_yeri_id = ?, giris_saati = ?, cikis_saati = ?, tutar = ? WHERE plaka = ?");
-                stmt.setLong(1, park_yeri_id);
-                stmt.setTimestamp(2, giris_zamani);
-                stmt.setTimestamp(3, cikis_zamani);
-                stmt.setLong(4, tutar);
-                stmt.setString(5, plaka);
-            } else {
-                stmt = con.prepareStatement("INSERT INTO gecmis (park_yeri_id, plaka, giris_saati, cikis_saati, tutar) VALUES (?, ?, ?, ?, ?)");
-                stmt.setLong(1, park_yeri_id);
-                stmt.setString(2, plaka);
-                stmt.setTimestamp(3, giris_zamani);
-                stmt.setTimestamp(4, cikis_zamani);
-                stmt.setLong(5, tutar);
-            }
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows > 0) {
-                System.out.println("Veri başarıyla eklendi veya güncellendi.");
-            } else {
-                System.out.println("Veri eklenirken veya güncellenirken bir hata oluştu.");
-            }
-            String deleteQuery = "DELETE FROM otopark WHERE plaka = ?";
-            PreparedStatement deleteStmt = con.prepareStatement(deleteQuery);
-            deleteStmt.setString(1, plaka);
-            deleteStmt.executeUpdate();
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public int getParkYeriID(String aracPlakasi, Connection con) {
@@ -186,8 +98,9 @@ public class logindb {
     public ArrayList<String> getAracVerileri(String plaka) {
         ArrayList<String> aracVerileri = new ArrayList<>();
 
+        Connection con = null;
         try {
-            Connection con = conGetir();
+            con = conGetir();
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM gecmis WHERE plaka = ?");
             stmt.setString(1, plaka);
             ResultSet rs = stmt.executeQuery();
@@ -205,6 +118,14 @@ public class logindb {
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
 
         return aracVerileri;
@@ -240,9 +161,10 @@ public class logindb {
 
     public boolean kayitYap(String isim, String soyisim, String eposta, String sifre) {
         boolean kayitBasarili = false;
+        Connection con = null;
         try {
 
-            Connection con = conGetir();
+            con = conGetir();
             sifre = hashPassword(sifre);
             PreparedStatement checkStmt = con.prepareStatement("SELECT COUNT(*) FROM kullanicilar WHERE eposta = ?");
             checkStmt.setString(1, eposta);
@@ -264,6 +186,14 @@ public class logindb {
             checkStmt.close();
 
         } catch (Exception e) {
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
         return kayitBasarili;
     }
@@ -308,9 +238,10 @@ public class logindb {
 
     public boolean adminEkle(String isim, String soyisim, String eposta, String sifre) {
         boolean kayitBasarili = false;
+        Connection con = null;
         try {
 
-            Connection con = conGetir();
+            con = conGetir();
             sifre = hashPassword(sifre);
             PreparedStatement checkStmt = con.prepareStatement("SELECT COUNT(*) FROM adminler WHERE eposta = ?");
             checkStmt.setString(1, eposta);
@@ -332,6 +263,14 @@ public class logindb {
             checkStmt.close();
 
         } catch (Exception e) {
+        } finally {
+            if (con != null) {
+                try {
+                    con.close(); // Bağlantı kapatılıyor
+                } catch (SQLException e) {
+                    // Bağlantı kapatma hatası
+                }
+            }
         }
         return kayitBasarili;
     }
@@ -373,10 +312,11 @@ public class logindb {
         return isValidUser;
     }
 
-    public boolean resetPass(String isim ,String eposta, String sifre) {
+    public boolean resetPass(String isim, String eposta, String sifre) {
         boolean basari = false;
+        Connection con = null;
         try {
-            Connection con = conGetir();
+            con = conGetir();
 
             String query = "SELECT * FROM kullanicilar WHERE eposta = ? AND isim= ?";
             PreparedStatement stmt = con.prepareStatement(query);
