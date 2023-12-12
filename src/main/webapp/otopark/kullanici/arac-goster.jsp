@@ -56,6 +56,7 @@
     </head>
     <body>
         <%
+            request.setCharacterEncoding("utf-8");
             String kontrol = (String) session.getAttribute("isLogin");
             if (kontrol == null || !kontrol.equals("true")) {
                 response.sendRedirect("kullanici-loginpage.jsp");
