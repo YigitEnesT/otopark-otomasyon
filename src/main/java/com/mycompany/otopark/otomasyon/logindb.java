@@ -46,10 +46,19 @@ public class logindb {
             String password = "enes";
             Connection con = DriverManager.getConnection(url, username, password);
             return con;
+            
         } catch (Exception e) {
         }
         return null;
     }
+    public boolean metinIcindeSayiVarMi(String metin) {
+            for (char karakter : metin.toCharArray()) {
+                if (Character.isDigit(karakter)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
     public Timestamp getGirisZamani(String plaka, Connection con) {
         Timestamp girisZamani = null;

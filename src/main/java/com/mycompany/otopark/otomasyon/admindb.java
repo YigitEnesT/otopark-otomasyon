@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,27 @@ import java.util.Date;
 public class admindb {
 
     public static void main(String[] args) {
+        try {
+            // Bağlantı kodu
+            String url = "jdbc:mysql://google/otopark?cloudSqlInstance=otopark123:us-central1:otopark&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=otopark&password=";
+            Connection con = DriverManager.getConnection(url);
+
+            // Test sorgusu
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT 1");
+
+            // Sonucun konsola yazdırılması
+            if (resultSet.next()) {
+                System.out.println("Veritabanına başarılı bir şekilde bağlandınız!");
+            }
+
+            // Bağlantıyı kapatma
+            resultSet.close();
+            statement.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Bağlantı hatası: " + e.getMessage());
+        }
 
     }
 
@@ -29,7 +51,8 @@ public class admindb {
             String url = "jdbc:mysql://localhost:3306/otopark?useSSL=false";
             String username = "root";
             String password = "enes";
-            Connection con = DriverManager.getConnection(url, username, password);
+            //String url = "jdbc:mysql://google/otopark?cloudSqlInstance=otopark123:us-central1:otopark&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=otopark&password=";
+            Connection con = DriverManager.getConnection(url,username,password);
             return con;
         } catch (Exception e) {
         }

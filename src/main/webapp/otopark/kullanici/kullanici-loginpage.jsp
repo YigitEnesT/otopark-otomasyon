@@ -147,8 +147,8 @@
                 <button type="button" class="submit-container" onclick="goBack()">Geri Dön</button>
             </form>
             <form action="register-islem.jsp" method="POST" id="register-form" class="form-container">
-                <input type="text" class="input-container" placeholder="İsminizi giriniz" name="isim" required>
-                <input type="text" class="input-container" placeholder="Soyadınızı giriniz" name="soyisim" required>
+                <input type="text" class="input-container" placeholder="İsminizi giriniz" maxlength="20" name="isim" required>
+                <input type="text" class="input-container" placeholder="Soyadınızı giriniz" maxlength="20" name="soyisim" required>
                 <input type="email" class="input-container" placeholder="Eposta adresini giriniz" name="eposta" required>
                 <input type="password" class="input-container" placeholder="Şifrenizi giriniz" name="sifre" required>
                 <input type="submit" class="submit-container" value="Kayıt Ol">

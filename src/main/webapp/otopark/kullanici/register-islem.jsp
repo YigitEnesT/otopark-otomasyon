@@ -42,7 +42,19 @@
             out.println("</script>");
         } else {
             logindb obj = new logindb();
+            
+            
+            if ( obj.metinIcindeSayiVarMi(isim) || obj.metinIcindeSayiVarMi(soyisim)) {
+            %>
+                <script>
+                        alert("Kayıt başarısız!");
+                        window.location.href = "kullanici-loginpage.jsp";
+                    </script>
+             <%}else{
+            
             boolean kayitSonucu = obj.kayitYap(isim, soyisim, eposta, sifre);
+            
+            
             if (kayitSonucu) {
                 if ((obj.checkUser(eposta, sifre, request))) {
                         session.setAttribute("isLogin", "true");
@@ -53,8 +65,12 @@
                         </script>
                         <%
                     }
-                else{
-                    response.sendRedirect("kullanici-loginpage.jsp");
+                else{%>
+                    <script>
+                        alert("Kayıt başarısız!");
+                        window.location.href = "kullanici-loginpage.jsp";
+                    </script>
+                    <%
                 }
             } else { %>
             <script>
@@ -62,7 +78,7 @@
                 window.location.href = "kullanici-loginpage.jsp";
             </script>
             <%}
-        }%>
+        }}%>
         
 </body>
 </html>
